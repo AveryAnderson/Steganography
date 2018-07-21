@@ -31,3 +31,5 @@ only, save the message for future viewing, or to both display the message and sa
 There is one assumption made in this program, and that is while decrypting we assume there is not a message if we
 cannot find the message's length within the first 7 characters of the file.  This means we will not be able to 
 decode a message with more than 9,999,999 bytes of information, regardless of whether or not it will fit in the image.
+
+Further discussion on the actual encryption/decryption process can be found in the Final Writeup pdf.
