@@ -1,0 +1,33 @@
+In this directory are two matlab functions which can be used to encode .txt and .wav files into images.
+Once a message is encoded the image cannot be compressed or the information will be lost.  So these images
+are stored as .bmp files.
+
+Also in this directory are two images that already have large messages encoded within them.  Hidden_Audio has
+the 'handel.wav' file that comes with matlab already stored within it.  Hidden_Text has a famously long novel.
+Audio files are stored with floating point decimal numbers, so in order to accomplish this project I had to
+rely on functions to convert these floats into binary.  One of these functions can be found at the bottom of 
+each of my functions, and they are also found in the "third party functions" folder within the directory.  These
+photos are very filled with information, so it takes a while to decode them, but the output does come out.
+
+The messages are encoded into the images by overwriting the least significant bit of every RGB frame of every 
+pixel in the image.  This means we need 8 pixels of image for every byte of information we want to store in an
+image.  Information about the length of the message, and the sampling rate for audio files, is encoded in the 
+message as well.  Meaning audio files are not only data dense, quickly filling space in their own right, but 
+they also require more overhead than a text file in order to be played at the end of the process.
+
+In order to hide this text file in an image like the jpg of the flatirons we would simply write 
+		newImage = encryption('Flatirons.jpg','READ_AND_ENCODE_ME.txt');
+The code will prompt the user whether or not they want to save the file. If the respond 'y' they will then be
+prompted for a name for which they should save the image.  The .bmp suffix will be added automatically.
+
+newImage will always be set with the same encoded information.  We can choose to decrypt from an image already
+loaded into matlab, or by passing in the name of a previously encoded.bmp file.  For example decoding the text
+example image included can be accomplished with the statement
+		decryption('Hidden_Text.bmp');
+Assuming the program succeeds in decoding a message from the image, the user will be told the name of the encoded
+file, and will be asked how they would like to recieve it.  The can choose to see/hear the message in the terminal
+only, save the message for future viewing, or to both display the message and save it.
+
+There is one assumption made in this program, and that is while decrypting we assume there is not a message if we
+cannot find the message's length within the first 7 characters of the file.  This means we will not be able to 
+decode a message with more than 9,999,999 bytes of information, regardless of whether or not it will fit in the image.
